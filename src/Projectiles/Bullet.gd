@@ -1,9 +1,8 @@
 extends Area2D
 
 const ShellExplosionEffect = preload("res://src/VFX/ShellExplosion.tscn")
-#onready var bullet_camera: Camera2D = $BulletCamera2D
-#onready var bullet_remote_transform: RemoteTransform2D = $RemoteTransform2D
 
+onready var bullet_camera = $GameCamera2D/Camera2D
 
 
 var velocity = Vector2(100, 0)
@@ -11,10 +10,14 @@ var velocity = Vector2(100, 0)
 signal update_bullet_instance_count(bullet_instance_count)
 signal tank_shell_collision(shell_instance_coordinates)
 
+func _ready() -> void:
+	bullet_camera.offset = Vector2(250, -100)
+
 func _process(delta: float) -> void:
 	velocity.y += gravity * delta
 	position += velocity * delta
 	rotation = velocity.angle()
+	bullet_camera.position = self.position
 	
 
 func get_instance_count(resource_object: Resource) -> int:
