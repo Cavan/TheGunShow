@@ -13,7 +13,6 @@ signal update_debug_ui(new_position, new_angle, new_bullet_position, total_bulle
 signal reset_camera_position(player_position, player_offset)
 
 func _ready() -> void:
-	var cam_node = get_node("")
 	get_tree().get_nodes_in_group("BULLET_COUNTS").clear()
 	var bullet_node = Bullet.instance()
 	bullet_node.connect("tank_shell_collision", self, "reset_camera_position")
@@ -63,7 +62,7 @@ func shoot():
 	get_parent().add_child(b)
 	bullet_position_update = b.position
 	b.add_to_group("BULLET_COUNTS")
-	b.bullet_camera.current = true
+	reset_players_camera(self.position, Vector2(500, -200))
 	
 		
 	
@@ -83,8 +82,8 @@ func set_new_debug_data(new_position: Vector2,
 				new_bullet_position,
 				total_bullet_instances)
 
-func reset_camera_position(bullet_impact_collision: Vector2) -> void:
-	print("Reset Player's camera position----------->")
+func reset_players_camera(player_position: Vector2, player_offset: Vector2) -> void:
+	emit_signal("reset_camera_position", player_position, player_offset)
 
 # Player camera settings
 ### Offset x -> 500, y -> -200
