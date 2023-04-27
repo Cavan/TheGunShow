@@ -8,14 +8,17 @@ var Bullet: Resource = preload("res://src/Projectiles/Bullet.tscn")
 var bullet_position_update: Vector2 = Vector2(0,0)
 
 onready var muzzle_barrel = $Muzzle
+onready var player_camera = $GameCamera2D/Camera2D
 
 signal update_debug_ui(new_position, new_angle, new_bullet_position, total_bullet_instances)
 signal reset_camera_position(player_position, player_offset)
 
 func _ready() -> void:
 	get_tree().get_nodes_in_group("BULLET_COUNTS").clear()
-	var bullet_node = Bullet.instance()
-	bullet_node.connect("tank_shell_collision", self, "reset_camera_position")
+	# Camera Settings Offset x -> 500, y -> -300
+	player_camera.make_current()
+	player_camera.offset = Vector2(500,-300)
+	
 	
 	
 
@@ -29,6 +32,7 @@ func _physics_process(delta: float) -> void:
 		aim_turret(-AIM_ANGLE_INCREMENT)
 	if Input.is_action_pressed("aim_barrel_down"):
 		aim_turret(AIM_ANGLE_INCREMENT)
+	player_camera.position = self.position
 	
 		
 	set_new_debug_data(position, 
@@ -48,11 +52,11 @@ func get_direction() -> Vector2:
 func calculate_move_velocity(
 				linear_velocity: Vector2,
 				direction: Vector2,
-				speed: Vector2) -> Vector2:
+				speed: float) -> Vector2:
 	var velocity: = linear_velocity
-	velocity.x = speed.x * direction.x
+	velocity.x = speed * direction.x
 	if direction.y != 0.0:
-		velocity.y = speed.y * direction.y
+		velocity.y = speed * direction.y
 	return velocity
 	
 func shoot():
@@ -62,7 +66,8 @@ func shoot():
 	get_parent().add_child(b)
 	bullet_position_update = b.position
 	b.add_to_group("BULLET_COUNTS")
-	reset_players_camera(self.position, Vector2(500, -200))
+	# Turning off bullet follow for now not sure what I want to do with it.
+	#b.bullet_camera.make_current()
 	
 		
 	
@@ -71,6 +76,7 @@ func shoot():
 func aim_turret(angleDeg: float) -> void:
 	muzzle_barrel.rotate(deg2rad(angleDeg))
 	$Muzzle/MuzzleFirePosition.rotation = muzzle_barrel.rotation
+	player_camera.make_current()
 
 func set_new_debug_data(new_position: Vector2, 
 						new_angle: float, 
@@ -86,5 +92,5 @@ func reset_players_camera(player_position: Vector2, player_offset: Vector2) -> v
 	emit_signal("reset_camera_position", player_position, player_offset)
 
 # Player camera settings
-### Offset x -> 500, y -> -200
+###
 ### Current -> true

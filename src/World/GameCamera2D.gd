@@ -4,9 +4,8 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#"reset_camera_position", player_position, player_offset)
-	var check_connection = get_node("../Player").connect("reset_camera_position", self, "_on_update_player_camera")
-	
-	print(check_connection)
+	#var check_connection = get_node("../Player").connect("reset_camera_position", self, "_on_update_player_camera")
+	pass
 	
 
 
