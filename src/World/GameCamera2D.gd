@@ -1,18 +1,18 @@
 extends Node
 
-var test_node = get_node()
-
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	#"reset_camera_position", player_position, player_offset)
+	var check_connection = get_node("../Player").connect("reset_camera_position", self, "_on_update_player_camera")
 	
-	pass # Replace with function body.
+	print(check_connection)
+	
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func _on_update_player_camera(player_position: Vector2, player_offset: Vector2) -> void:
+	print("Player Camera Updated")
+	
+func _on_update_bullet_camera(bullet_position: Vector2, bullet_offset: Vector2) -> void:
+	print("Bullet Camera Updated")
+	
