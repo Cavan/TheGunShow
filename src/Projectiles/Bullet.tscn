@@ -5,6 +5,8 @@
 [ext_resource path="res://src/World/GameCamera2D.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
+radius = 7.99997
+height = 16.0002
 
 [node name="Bullet" type="Area2D" groups=["BULLET_COUNT"]]
 position = Vector2( -56, -24 )

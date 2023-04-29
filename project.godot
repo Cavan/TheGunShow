@@ -96,6 +96,8 @@ enemy_move_right={
 2d_physics/layer_4="Bullet"
 2d_physics/layer_5="SmallObject"
 2d_physics/layer_6="LargeObject"
+2d_physics/layer_7="Wall"
+2d_physics/layer_8="Obstacle"
 
 [physics]
 
