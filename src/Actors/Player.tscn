@@ -14,7 +14,8 @@ z_index = -1
 collision_mask = 4
 script = ExtResource( 2 )
 speed = 2.0
-muzzle_velocity = 600
+has_infinite_inertia = false
+muzzle_velocity = 3000
 
 [node name="Muzzle" type="Sprite" parent="."]
 position = Vector2( 13.0026, -40 )

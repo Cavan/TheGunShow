@@ -10,7 +10,7 @@ extends "res://src/Projectiles/Bullet.gd"
 func _ready() -> void:
 	# the velocity along the x axis needs to be negative
 	# too shoot towards the player
-	velocity = Vector2(-100, 0)
+	velocity = Vector2(100, 0)
 
 
 func _process(delta: float) -> void:

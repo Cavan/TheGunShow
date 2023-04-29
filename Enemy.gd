@@ -5,7 +5,7 @@ enum DIRECTION {LEFT = -1, RIGHT = 1}
 var EnemyBullet: Resource = preload("res://src/Projectiles/EnemyBullet.tscn")
 
 export(DIRECTION) var WALKING_DIRECTION = DIRECTION.RIGHT
-export var muzzle_velocity = 350
+export var muzzle_velocity = 0
 
 onready var firing_timer = $FiringTimer
 
@@ -65,6 +65,9 @@ func shoot() -> void:
 	b.transform = $Muzzle/MuzzleFirePosition.global_transform
 	b.velocity = b.transform.x * muzzle_velocity
 	get_parent().add_child(b)
+	print("Muzzle Velocity: %s" % muzzle_velocity)
+	print("Velocity: %s" % b.velocity)
+	print("Transform Value: %s" % b.transform.x)
 
 func _on_timer_timeout() -> void:
 	print("Timer has elapsed")

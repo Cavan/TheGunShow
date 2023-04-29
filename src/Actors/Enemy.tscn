@@ -17,6 +17,7 @@ collision_mask = 13
 script = ExtResource( 1 )
 speed = 100.0
 WALKING_DIRECTION = -1
+muzzle_velocity = -1400
 
 [node name="Muzzle" type="Sprite" parent="."]
 position = Vector2( -16, -40 )
